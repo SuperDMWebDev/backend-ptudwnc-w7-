@@ -6,7 +6,7 @@ exports.getUser = (username) => {
   return new Promise((resolve, reject) => {
     db.query(sql, username, (err, response) => {
       if (err) return reject(err);
-      return resolve(response);
+      return resolve(response[0]);
     });
   });
 };
@@ -14,7 +14,7 @@ exports.getUser = (username) => {
 //create user
 //user = {username: , password: 'password'};
 exports.createUser = (user) => {
-  const sql = "insert into accounts set";
+  const sql = "insert into accounts set ?";
 
   return new Promise((resolve, reject) => {
     db.query(sql, user, (err, response) => {

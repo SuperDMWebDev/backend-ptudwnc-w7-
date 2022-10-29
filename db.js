@@ -9,4 +9,9 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME || "backend_ptudwnc_w7",
 });
 
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected");
+});
+
 module.exports = db;

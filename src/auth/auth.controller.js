@@ -12,26 +12,20 @@ const authMethod = require("./auth.method");
 //variables
 const jwtVariable = require("../../variables/jwt");
 const { SALT_ROUNDS } = require("../../variables/auth");
-const jwt = require("../../variables/jwt");
-const {
-  refreshTokenSize,
-} = require("../../../../backend-web-advanced-w7/variables/jwt");
-const { response } = require("express");
-const e = require("express");
-const { isBuffer } = require("util");
-const { access } = require("fs");
 
 //register account
 exports.register = async (req, res) => {
   // get username
+  console.log("register body", req.body);
   const username = req.body.username.toLowerCase();
   const user = await userModel.getUser(username);
-  if (user) res.status(409).send("Username is already in use");
-  else {
+  if (user) {
+    res.status(409).send("Username is already in use");
+  } else {
     const hashPassword = bcrypt.hashSync(req.body.password, SALT_ROUNDS);
     const newUser = {
       username: username,
-      password: password,
+      password: hashPassword,
     };
     const createUser = await userModel.createUser(newUser);
 
@@ -93,7 +87,7 @@ exports.login = async (req, res) => {
     refreshToken = user.refreshToken;
   }
 
-  return response.json({
+  return res.json({
     msg: "Login successful",
     accessToken,
     refreshToken,
