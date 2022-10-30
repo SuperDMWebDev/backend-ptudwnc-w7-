@@ -7,4 +7,5 @@ const isAuth = authMiddleware.isAuth;
 router.get("/", isAuth, async (req, res) => {
   res.send(req.user);
 });
+
 module.exports = router;

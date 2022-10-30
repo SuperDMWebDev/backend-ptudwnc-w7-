@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 // app.get test return res.json
 app.get("/test", (req, res) => {
-  res.json({ message: "Test" });
+  res.json({ message: "Test link backend" });
 });
 
 // app.use link url
