@@ -16,7 +16,9 @@ const { SALT_ROUNDS } = require("../../variables/auth");
 //register account
 exports.register = async (req, res) => {
   // get username
-  console.log("register body", req.body);
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send("No username or password found");
+  }
   const username = req.body.username.toLowerCase();
   const user = await userModel.getUser(username);
   if (user) {
